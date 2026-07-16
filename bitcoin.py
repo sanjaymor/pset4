@@ -1,24 +1,21 @@
+import sys
 import requests
-from sys import argv, exit
 
-if len(argv) != 2:
-    exit("Missing command-line argument")
+if len(sys.argv) != 2:
+    sys.exit("Missing command-line argument")
 
 try:
-    n = float(argv[1])
+    n = float(sys.argv[1])
 except ValueError:
-    exit("Command-line argument is not a number")
+    sys.exit("Command-line argument is not a number")
 
 try:
     response = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
     response.raise_for_status()
 except requests.RequestException:
-    exit()
+    sys.exit()
 
 data = response.json()
+price = data["bpi"]["USD"]["rate_float"]
 
-price = float(data["bpi"]["USD"]["rate"].replace(",", ""))
-
-total = n * price
-
-print(f"${total:,.4f}")
+print(f"${n * price:,.4f}")
