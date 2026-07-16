@@ -1,18 +1,18 @@
-name = []
+names = []
+
 while True:
     try:
-        inpt= input('Name: ')
-        name.append(inpt)
-    except:
+        name = input("Name: ")
+        names.append(name)
+    except EOFError:
+        print()
         break
 
-print('Adieu, adieu, to',end=' ')
-if len(name)>2:
-    for n in name[:-1]:
-        print(n, end=', ')
+print("Adieu, adieu, to ", end="")
 
-    print('and', name[-1])
+if len(names) == 1:
+    print(names[0])
+elif len(names) == 2:
+    print(f"{names[0]} and {names[1]}")
 else:
-    print(name[0], end='')
-    if len(name)==2:
-        print(' and', name[1])
+    print(", ".join(names[:-1]) + ", and " + names[-1])
