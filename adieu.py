@@ -1,13 +1,16 @@
-My Solution: import inflect
+import inflect
+import sys
+
 p = inflect.engine()
-Ist = |]
+names = []
+
 while True:
-try:
-name = input("Names: ")
-Ist.append (name)
-except EOFError:
-print ("\n")
-break
-for name in Ist:
-mylist = p.join ((Ist), final_sep=",")
-print (f"Adieu, adieu, to {mylist}")
+    try:
+        name = input('Name: ')
+        names.append(name)
+
+    except EOFError:
+        print()
+        break
+
+print('Adieu, adieu, to ' + p.join(names))
