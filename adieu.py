@@ -11,7 +11,7 @@ def get_names():
 
     while True:
         try:
-            name = input("Name: ")
+            name = input()
         except EOFError:
             print()
             return names
