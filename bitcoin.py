@@ -1,27 +1,24 @@
 import requests
 from sys import argv, exit
 
-# get response
+if len(argv) != 2:
+    exit("Missing command-line argument")
+
 try:
-    response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+    n = float(argv[1])
+except ValueError:
+    exit("Command-line argument is not a number")
+
+try:
+    response = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
+    response.raise_for_status()
 except requests.RequestException:
     exit()
 
-# get price of bitcoin
-res = response.json()
-price = res['bpi']['USD']['rate'].replace(',','')
-price = float(price)
+data = response.json()
 
-# check and get argument
-if len(argv) != 2:
-    exit('Missing command-line argument')
-else:
-    try:
-        number = float(argv[1])
-    except:
-        exit('Command-line argument is not a number')
+price = float(data["bpi"]["USD"]["rate"].replace(",", ""))
 
-# calculate price
-total = number * price
+total = n * price
 
-print(f'${total:,.4f}')
+print(f"${total:,.4f}")
